@@ -1,13 +1,17 @@
 class Api::MoviesController < ApplicationController
   
-  before_action :authenticate_admin, except: [:index, :show]
+  # before_action :authenticate_admin, except: [:index, :show]
   
   def index
     @movies = Movie.where(english: true)
     render "index.json.jb"
   end
   def create
-    @movie = Movie.new(title: params[:title], year: params[:year], plot: params[:plot], english: params[:english], director: params[:director])
+    @movie = Movie.new(
+      title: params[:title], 
+      year: params[:year], 
+      plot: params[:plot],  
+      director: params[:director])
     if @movie.save
     render "show.json.jb"
     else
